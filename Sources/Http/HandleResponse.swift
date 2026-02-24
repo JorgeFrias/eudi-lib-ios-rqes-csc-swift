@@ -29,7 +29,11 @@ func handleResponse<T: Decodable>(_ data: Data, _ response: URLResponse, ofType 
             return .failure(ClientError.clientError(message: errorMessage, statusCode: httpResponse.statusCode))
         }
     } else {
-        let errorMessage = String(data: data, encoding: .utf8) ?? "Unable to decode error data."
-        return .failure(ClientError.clientError(message: errorMessage, statusCode: httpResponse.statusCode))
+        if let cscError = try? JSONDecoder().decode(CSCErrorResponse.self, from: data) {
+            return .failure(ClientError.cscError(error: cscError.error, description: cscError.errorDescription, statusCode: httpResponse.statusCode))
+        } else {
+            let errorMessage = String(data: data, encoding: .utf8) ?? "Unable to decode error data."
+            return .failure(ClientError.clientError(message: errorMessage, statusCode: httpResponse.statusCode))
+        }
     }
 }

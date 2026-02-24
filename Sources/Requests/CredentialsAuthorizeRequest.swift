@@ -15,57 +15,44 @@
  */
 import Foundation
 
-public struct SignHashRequest: Codable, Sendable {
+public struct CredentialsAuthorizeRequest: Codable, Sendable {
     public let credentialID: String
-    public let SAD: String?
-    public let signatureQualifier: SignatureQualifier?
-    public let hashes: [String]
-    public let hashAlgorithmOID: HashAlgorithmOID
-    public let signAlgo: SigningAlgorithmOID
-
+    public let numSignatures: Int
+    public let hashes: [String]?
+    public let hashAlgorithmOID: HashAlgorithmOID?
+    public let signAlgo: SigningAlgorithmOID?
     public let signAlgoParams: String?
-    public let operationMode: String?
-    public let validityPeriod: Int?
-    public let responseURI: String?
+    public let description: String?
     public let clientData: String?
 
     enum CodingKeys: String, CodingKey {
-        case credentialID
-        case SAD = "SAD"
-        case signatureQualifier = "signatureQualifier"
+        case credentialID = "credentialID"
+        case numSignatures = "num_signatures"
         case hashes
         case hashAlgorithmOID
         case signAlgo
         case signAlgoParams = "sign_algo_params"
-        case operationMode
-        case validityPeriod = "validity_period"
-        case responseURI = "response_uri"
+        case description
         case clientData = "client_data"
     }
 
     public init(
         credentialID: String,
-        SAD: String? = nil,
-        signatureQualifier: SignatureQualifier? = nil,
-        hashes: [String],
-        hashAlgorithmOID: HashAlgorithmOID,
-        signAlgo: SigningAlgorithmOID,
+        numSignatures: Int,
+        hashes: [String]? = nil,
+        hashAlgorithmOID: HashAlgorithmOID? = nil,
+        signAlgo: SigningAlgorithmOID? = nil,
         signAlgoParams: String? = nil,
-        operationMode: String? = nil,
-        validityPeriod: Int? = nil,
-        responseURI: String? = nil,
+        description: String? = nil,
         clientData: String? = nil
     ) {
         self.credentialID = credentialID
-        self.SAD = SAD
-        self.signatureQualifier = signatureQualifier
+        self.numSignatures = numSignatures
         self.hashes = hashes
         self.hashAlgorithmOID = hashAlgorithmOID
         self.signAlgo = signAlgo
         self.signAlgoParams = signAlgoParams
-        self.operationMode = operationMode
-        self.validityPeriod = validityPeriod
-        self.responseURI = responseURI
+        self.description = description
         self.clientData = clientData
     }
 }

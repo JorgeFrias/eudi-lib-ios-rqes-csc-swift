@@ -20,6 +20,7 @@ public enum ClientError: LocalizedError, Equatable {
     case invalidResponse
     case encodingFailed
     case clientError(message: String, statusCode: Int)
+    case cscError(error: String, description: String?, statusCode: Int)
     case httpError(statusCode: Int)
     case noData
     case responseDecodingError
@@ -34,6 +35,9 @@ public enum ClientError: LocalizedError, Equatable {
             return "Failed to encode the request."
         case .clientError(let message, let statusCode):
             return "Server response (status code \(statusCode)): \(message)"
+        case .cscError(let error, let description, let statusCode):
+            let descStr = description != nil ? " - \(description!)" : ""
+            return "CSC Error (status code \(statusCode)): \(error)\(descStr)"
         case .httpError(let statusCode):
             return "HTTP error with status code \(statusCode)."
         case .noData:

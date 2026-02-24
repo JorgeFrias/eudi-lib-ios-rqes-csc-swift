@@ -18,10 +18,13 @@ import Foundation
 public struct CredentialInfo: Codable, Sendable {
     public let description: String?
     public let signatureQualifier: SignatureQualifier?
+    public let signatureQualifiers: [SignatureQualifier]?
+    public let supportedSigningAlgorithms: [String]?
     public let key: KeyInfo
     public let cert: CertificateInfo?
     public let auth: AuthInfo?
     public let multisign: Int
+    public let multiSignSupported: Bool?
     public let lang: String?
     public let scal: String?
 
@@ -59,19 +62,25 @@ public struct CredentialInfo: Codable, Sendable {
     public init(
         description: String? = nil,
         signatureQualifier: SignatureQualifier? = nil,
+        signatureQualifiers: [SignatureQualifier]? = nil,
+        supportedSigningAlgorithms: [String]? = nil,
         key: KeyInfo,
         cert: CertificateInfo? = nil,
         auth: AuthInfo? = nil,
         multisign: Int,
+        multiSignSupported: Bool? = nil,
         lang: String? = nil,
         scal: String? = nil
     ) {
         self.description = description
         self.signatureQualifier = signatureQualifier
+        self.signatureQualifiers = signatureQualifiers
+        self.supportedSigningAlgorithms = supportedSigningAlgorithms
         self.key = key
         self.cert = cert
         self.auth = auth
         self.multisign = multisign
+        self.multiSignSupported = multiSignSupported
         self.lang = lang
         self.scal = scal
     }

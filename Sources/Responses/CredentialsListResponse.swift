@@ -24,10 +24,13 @@ public struct CredentialsListResponse: Codable, Sendable {
         public let credentialID: String
         public let description: String?
         public let signatureQualifier: SignatureQualifier?
+        public let signatureQualifiers: [SignatureQualifier]?
+        public let supportedSigningAlgorithms: [String]?
         public let key: KeyInfo
         public let cert: CertInfo
         public let auth: AuthInfo?
         public let multisign: Int?
+        public let multiSignSupported: Bool?
         public let lang: String?
         public let scal: String?
     }
